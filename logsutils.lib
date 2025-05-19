@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# la funcion logsize debe recibir tres parametros
+# logsize archivo tamañomaximo cantidaddecopias
+# archivo sin el .log, tamaño maximo en mb y cantidad de copias a conservar
+
+logsize(){
+  limite=$2  # recibe el maximo en mb del archivo.
+  log=$1 # recibe el nombre del archivo sin la extension .log
+  size=`ls -l $log.log | awk '{print$5}'`
+  limite=$(($limite * 1024 * 1024)) 
+  echo -e "El archivo: $log.log tiene: $size bytes \c"
+  echo -e "|| Limite: $limite \c"
+  if [ $size -ge $limite ]; then
+          echo " ==>> Se excede el limite, renombramos."
+          depura $log $3
+  else
+          echo " ==>> Limite OK"
+  fi
+
+
+}
+
+
+
+depura(){
+  arc=$1
+  lim=$2
+  dig=3
+  last=`printf "%.*d" $dig $lim`
+  
+  if [ -f $arc.$last ]
+  then
+    rm $arc.$last
+  fi
+  for ((i=$(($lim -1));i > 0; i--))
+  do
+    afrom=`printf "%.*d" $dig $i`
+    ato=`printf "%.*d" $dig $(($i+1))`
+    if [ -f $arc.$afrom ]
+    then
+      mv -f $arc.$afrom $arc.$ato
+    fi
+  done
+  if [ -f $arc.log ]
+  then
+      ato=`printf "%.*d" $dig 1`
+      mv -f $arc.log $arc.$ato
+  fi
+  touch $arc.log
+
+}
+
+
+
+depurPorFecha(){
+log=adsf
+
+}
+
+
+
+
+# log debe recibir siempre el nombre completo del archivo en $LOG
+
+log(){
+  dttm=$(date +%c)
+  if [ "$2" == 1 ]; then
+    echo -e "$dttm - $1\c" >> $LOG
+  elif [ "$2" == 2 ]; then
+    echo "$1" >> $LOG
+  else
+    echo "$dttm - $1" >> $LOG
+  fi
+  
+}
+
+
+
+
