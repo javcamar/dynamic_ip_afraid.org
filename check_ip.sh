@@ -26,9 +26,10 @@ NS=("8.8.4.4" "8.8.8.8" "70.39.97.253" "67.220.81.190" "69.65.50.223" "69.65.50.
 
 # ------------------ FUNCTIONS ------------------
 
-#Load logging tools
+#Load logging tools CHECK THE PATH 
+#----------------------------------
 . /usr/local/bin/logsutils.lib #this file provides separately, is only for logging purposes
-
+#------------------------------
 # Function to check if a string is a valid IP
 function es_ip_valida () {
   # Check for IP format (number.number.number.number)

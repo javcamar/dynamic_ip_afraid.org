@@ -19,6 +19,10 @@ Configure the parameters:
 * `LOG`: Specify the name of the log file without the extension (`.log` will be added automatically).
   Example: `LOG=/var/log/ipcheck`
 
+Check the path on the next line, in my case the working path is /usr/local/bin but adapt it to your needs.
+* `. /usr/local/bin/logsutils.lib`
+
+
 Once configured, the script is ready to use.
 
 Then you need to set up a `crontab` entry to run the script automatically every X minutes.
